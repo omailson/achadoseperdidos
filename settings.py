@@ -1,26 +1,45 @@
 # Django settings for achadosperdidos project.
+import os.path
+try:
+    # Tentando abrir o local_settings
+    #
+    # Se local_settings.py nao existir, mas o local_settings.pyc existir, o
+    # import vai ser feito com sucesso. Para reescrever o local_settings.py,
+    # apague os dois arquivos associados.
+	from local_settings import *
+except ImportError:
+    # Caso nao exista:
+    # Criando um arquivo local_settings.py onde vai conter as partes do
+    # settings.py que mudam de PC para PC (o caminho para o sqlite3.db, por
+    # exemplo)
+    #
+    # No arquivo tambem eh setada a variavel PROJECTROOT que pode ser usada em
+    # qualquer lugar do projeto como uma forma simples de saber o caminho dele.
+    #
+    # As configuracoes do banco de dados, como podem variar de PC para PC,
+    # estao no local_settings tambem
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+    # Abre um template do local_settings
+	settings_template = open('local_settings.py.default', 'r').read() 
+    # Pega o caminho completo para a pasta atual
+	settings_folder = os.getcwd() 
+    # Corrigindo barra invertida para barra normal (windows)
+	settings_folder = settings_folder.replace('\\', '/') 
+    # Substituindo o texto que tem no template pelo caminho real do projeto
+	settings_content = settings_template.replace('/path/to/project/', settings_folder) 
+    # Escrevendo conteudo
+	settings_file = open('local_settings.py', 'w+')
+	settings_file.write(settings_content)
+	settings_file.close()
+
+	# Agora tentamos abrir o local_settings novamente
+	from local_settings import *
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
-PROJECTROOT = 'C:/Users/vanessa/achadosperdidos/' #Usa barra normal, inclusive no windows
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': PROJECTROOT + 'sqlite3.db',    # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
