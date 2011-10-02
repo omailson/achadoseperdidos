@@ -9,12 +9,64 @@
         }
     }, 
     {
+        "pk": "vgl2", 
+        "model": "servidor.usuario", 
+        "fields": {
+            "permissao": "asd", 
+            "senha": "123", 
+            "nome": "Vanessa"
+        }
+    }, 
+    {
+        "pk": "mgmp", 
+        "model": "servidor.usuario", 
+        "fields": {
+            "permissao": "asd", 
+            "senha": "123", 
+            "nome": "Mariana"
+        }
+    }, 
+    {
         "pk": 1, 
         "model": "servidor.produto", 
         "fields": {
-            "status": false, 
             "tipo": "bolsa", 
             "descricao": "Louis Vuitton"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "servidor.produto", 
+        "fields": {
+            "tipo": "pendrive", 
+            "descricao": "Kingston 8gb"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "servidor.produto", 
+        "fields": {
+            "tipo": "caneta", 
+            "descricao": "Bic Azul"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "servidor.achado", 
+        "fields": {
+            "data_registro": "2011-10-02", 
+            "produto": 3, 
+            "usuario": "mgmp"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "servidor.recuperado", 
+        "fields": {
+            "data_registro": "2011-10-02", 
+            "achado": 1, 
+            "status": false, 
+            "usuario": "vgl2"
         }
     }, 
     {

@@ -16,7 +16,6 @@ class Usuario (models.Model):
 		return "Usuario: " + self.login + " || " + self.nome + " || " + self.permissao
 
 class Produto (models.Model):
-	status = models.BooleanField() # Resolvido
 	descricao = models.TextField(blank=False)
 	tipo = models.CharField(max_length=100)
 	
@@ -34,10 +33,11 @@ class Achado(models.Model):
 class Recuperado(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
 	usuario = models.ForeignKey(Usuario)
-	produto = models.ForeignKey(Achado)
+	achado = models.ForeignKey(Achado)
+	status = models.BooleanField() # Resolvido
 
 	def __unicode__(self):
-		return self.usuario.login+" recuperou "+self.produto.produto.descricao+" achado por "+self.produto.usuario.login
+		return self.usuario.login+" recuperou "+self.achado.produto.descricao+" achado por "+self.achado.usuario.login
 	
 class Perdido(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
@@ -50,7 +50,8 @@ class Perdido(models.Model):
 class Encontrado(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
 	usuario = models.ForeignKey(Usuario)
-	produto = models.ForeignKey(Perdido)
+	perdido = models.ForeignKey(Perdido)
+	status = models.BooleanField() # Resolvido
 
 	def __unicode__(self):
-		return self.usuario.login+" encontrou "+self.produto.produto.descricao+" de "+self.produto.usuario.login
+		return self.usuario.login+" encontrou "+self.perdido.produto.descricao+" de "+self.perdido.usuario.login

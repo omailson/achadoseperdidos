@@ -42,10 +42,9 @@ def cadastrarProduto(request):
 	try:
 		cadastro = request.POST
 		tipoCadastro = cadastro['tipo']
-		statusCadastro = False #false pra produto perdido, produto encontrado eh True
 		descricaoCadastro = cadastro["descricao"]
 		
-		produto = Produto(tipo=tipoCadastro, status=statusCadastro, descricao=descricaoCadastro)
+		produto = Produto(tipo=tipoCadastro, descricao=descricaoCadastro)
 		produto.save()
 
 		# XXX: Pegar usuario 
