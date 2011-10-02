@@ -1,0 +1,7 @@
+<h1>Cadastrar usuário</h1>
+<form action="/cadastrarUsuario/" method="post">{% csrf_token %}
+<p>Login <input name="login" type="text"/></p>
+<p>Senha <input name="senha" type="password"/></p>
+<p>Confirmar Senha <input name="senhaconfirmacao" type="password"/></p>
+<input type="submit" value="Cadastrar" />
+</form>
