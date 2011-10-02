@@ -28,17 +28,29 @@ class Achado(models.Model):
 	usuario = models.ForeignKey(Usuario)
 	produto = models.ForeignKey(Produto)
 
+	def __unicode__(self):
+		return self.usuario.login + " achou "+ self.produto.descricao
+
 class Recuperado(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
 	usuario = models.ForeignKey(Usuario)
 	produto = models.ForeignKey(Achado)
+
+	def __unicode__(self):
+		return self.usuario.login+" recuperou "+self.produto.produto.descricao+" achado por "+self.produto.usuario.login
 	
 class Perdido(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
 	usuario = models.ForeignKey(Usuario)
 	produto = models.ForeignKey(Produto)
 
+	def __unicode__(self):
+		return self.usuario.login+" perdeu "+self.produto.descricao
+
 class Encontrado(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
 	usuario = models.ForeignKey(Usuario)
 	produto = models.ForeignKey(Perdido)
+
+	def __unicode__(self):
+		return self.usuario.login+" encontrou "+self.produto.produto.descricao+" de "+self.produto.usuario.login

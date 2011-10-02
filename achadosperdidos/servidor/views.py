@@ -87,6 +87,14 @@ def listarProdutosPerdidos(request):
 	c = RequestContext (request, {'produtos': produtos})
 	return HttpResponse(t.render(c))	
 
+def listarProdutosAchados(request):
+	achados = Achado.objects.all()
+	produtos = [x.produto for x in achados if not x.produto.status]
+
+	t = loader.get_template('listar_produtos.html')
+	c = RequestContext (request, {'produtos': produtos})
+	return HttpResponse(t.render(c))	
+
 #uc08 
 def recuperarProduto(request):
 	return HttpResponse("TEM QUE FAZER!!!")
