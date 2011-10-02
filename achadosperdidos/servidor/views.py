@@ -80,14 +80,12 @@ def listarProdutosEncontrados(request):
 
 #uc07 -- Vanessa_E_Mariana
 def listarProdutosPerdidos(request):
-	produtos = Produto.objects.all()
-	resposta = []
+	perdidos = Perdido.objects.all()
+	produtos = [x.produto for x in perdidos if not x.produto.status]
 
-	for p in produtos:
-		if (p.status == False):
-			resposta.append(p)
-
-	return HttpResponse(resposta)
+	t = loader.get_template('listar_produtos.html')
+	c = RequestContext (request, {'produtos': produtos})
+	return HttpResponse(t.render(c))	
 
 #uc08 
 def recuperarProduto(request):
