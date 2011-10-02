@@ -1,0 +1,6 @@
+<h1>Página inicial</h1>
+<form action="/fazerLogin/" method="post">{% csrf_token %}
+<p>Login <input name="login" type="text"/></p>
+<p>Senha <input name="senha" type="password"/></p>
+<input type="submit" value="Logar" />
+</form>

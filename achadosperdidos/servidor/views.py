@@ -1,14 +1,31 @@
 # -*- coding: utf-8 -*-
 
 from servidor.models import *
+from django.core.context_processors import csrf
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render_to_response
+from django.template import loader, Context, RequestContext
 
 #TEM QUE TER CONTROLE DE ID!!!!!!!
 
+def index(request):
+	c = {}
+	c.update(csrf(request))
+	return render_to_response('index.html', c)
 
 #uc-01 fazer login
 def fazerLogin(request):
-	return HttpResponse("TEM QUE FAZER!!!")
+	t = loader.get_template('login.html')
+	dados = request.POST
+	login = dados['login']
+	senha = dados['senha']
+	
+	
+	
+	c = RequestContext (request, {
+		'mensagem': 'pegou'
+	})
+	return HttpResponse(t.render(c))
 	
 #uc-02 logout
 def fazerLogout(request):

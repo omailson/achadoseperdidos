@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
+	url(r'^index/$', 'achadosperdidos.servidor.views.index'),
 	url(r'^fazerLogin/$', 'achadosperdidos.servidor.views.fazerLogin'),
 	url(r'^fazerLogout/$', 'achadosperdidos.servidor.views.fazerLogout'),
 	url(r'^cadastrarUsuario/$', 'achadosperdidos.servidor.views.cadastrarUsuario'),
