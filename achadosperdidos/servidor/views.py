@@ -6,8 +6,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import loader, Context, RequestContext
 
-#TEM QUE TER CONTROLE DE ID!!!!!!!
-
 def index(request):
 	c = {}
 	c.update(csrf(request))
@@ -40,23 +38,34 @@ def cadastrarProdutoEncontrado(request):
 	return HttpResponse("TEM QUE FAZER!!!")
 
 #uc-05 -- Vanessa_E_Mariana
-def cadastrarProdutoPerdido(request):
-	#TEM QUE TER CONTROLE DE ID!!!!!!!
+def cadastrarProduto(request):
 	try:
 		cadastro = request.POST
-		idCadastro = "IDTEMPORARIO - TEM QUE MUDAR"
 		tipoCadastro = cadastro['tipo']
 		statusCadastro = False #false pra produto perdido, produto encontrado eh True
 		descricaoCadastro = cadastro["descricao"]
 		
-		produto = Produto(id=idCadastro, tipo=tipoCadastro, status=statusCadastro, descricao=descricaoCadastro)
+		produto = Produto(tipo=tipoCadastro, status=statusCadastro, descricao=descricaoCadastro)
 		produto.save()
-		
+
+		# XXX: Pegar usuario 
+		u = Usuario.objects.all()[0]
+
+		perdido = Perdido(usuario=u, produto=produto)
+		perdido.save()
+
 		resposta = "Cadastro efetuado com sucesso."
-	except:
+	except Exception as e:
+		print e
 		resposta = "Cadastro inválido. Digite os dados corretamente."
 
 	return HttpResponse(resposta)
+
+def form_cadastrarProduto(request):
+	t = loader.get_template('form_cadastrarProdutoPerdido.html')
+	c = RequestContext (request)
+	c.update(csrf(request))
+	return HttpResponse(t.render(c))	
 
 #uc-06 -- Vanessa_E_Mariana
 def listarProdutosEncontrados(request):

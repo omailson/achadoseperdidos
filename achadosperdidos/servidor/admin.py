@@ -3,7 +3,7 @@ from django.contrib import admin
 
 admin.site.register(Produto)
 admin.site.register(Usuario)
-admin.site.register(Achou)
-admin.site.register(Perdeu)
-admin.site.register(PossivelDono)
-admin.site.register(Encontrou)
+admin.site.register(Achado)
+admin.site.register(Perdido)
+admin.site.register(Recuperado)
+admin.site.register(Encontrado)

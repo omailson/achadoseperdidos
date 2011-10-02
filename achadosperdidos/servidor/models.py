@@ -16,44 +16,29 @@ class Usuario (models.Model):
 		return "Usuario: " + self.login + " || " + self.nome + " || " + self.permissao
 
 class Produto (models.Model):
-	TIPOS_CHOICES = ( 
-		('pendrive','Pendrive'),
-		#('caneta','Caneta'),
-		('fonedeouvido','Fone de Ouvido'),
-		('carregadorcelular','Carregador de Celular'),
-		('carregadornotebook','Carregador de Notebook'),
-		#('cabo','Cabo'),
-		#('bolsa','Bolsa'),
-		('guardachuva', 'Guarda Chuva/Sombrinha'),
-		#('cracha', 'Crachá'),
-		('outros', 'Outros'),
-		#('livrorevista', 'Livro/Revista'),
-		#('estojo', 'Estojo'),
-	)
-	id = models.TextField(primary_key = True)
-	status = models.BooleanField() #tem que mudar pra booleano, nao ajeitamos porque o site tá ruim
+	status = models.BooleanField() # Resolvido
 	descricao = models.TextField(blank=False)
-	tipo = models.CharField(max_length=100, choices=TIPOS_CHOICES)
+	tipo = models.CharField(max_length=100)
 	
 	def __unicode__(self):
 		return "Produto: " + self.tipo + " || " + self.descricao
 
-class Achou (models.Model):
+class Achado(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
-	login_usuario = models.ForeignKey(Usuario)
-	id_produto = models.ForeignKey(Produto)
+	usuario = models.ForeignKey(Usuario)
+	produto = models.ForeignKey(Produto)
 
-class PossivelDono(models.Model):
+class Recuperado(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
-	login_usuario = models.ForeignKey(Usuario)
-	id_produto = models.ForeignKey(Achou)
+	usuario = models.ForeignKey(Usuario)
+	produto = models.ForeignKey(Achado)
 	
-class Perdeu (models.Model):
+class Perdido(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
-	login_usuario = models.ForeignKey(Usuario)
-	id_produto = models.ForeignKey(Produto)
+	usuario = models.ForeignKey(Usuario)
+	produto = models.ForeignKey(Produto)
 
-class Encontrou (models.Model):
+class Encontrado(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
-	login_usuario = models.ForeignKey(Usuario)
-	id_produto = models.ForeignKey(Perdeu)
+	usuario = models.ForeignKey(Usuario)
+	produto = models.ForeignKey(Perdido)

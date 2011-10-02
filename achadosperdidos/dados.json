@@ -1,0 +1,29 @@
+[
+    {
+        "pk": "mdlm", 
+        "model": "servidor.usuario", 
+        "fields": {
+            "permissao": "asd", 
+            "senha": "123", 
+            "nome": "Mailson"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "servidor.produto", 
+        "fields": {
+            "status": false, 
+            "tipo": "bolsa", 
+            "descricao": "Louis Vuitton"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "servidor.perdido", 
+        "fields": {
+            "data_registro": "2011-10-02", 
+            "produto": 1, 
+            "usuario": "mdlm"
+        }
+    }
+]

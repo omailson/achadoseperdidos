@@ -1,0 +1,7 @@
+<form action="/cadastrarProduto/" method="post">{% csrf_token %}
+	<p>Tipo:</p>
+	<input type="text" name="tipo" />
+	<p>Descrição:</p>
+	<textarea name="descricao"></textarea><br>
+	<input type="submit" value="Cadastrar">
+</form>
