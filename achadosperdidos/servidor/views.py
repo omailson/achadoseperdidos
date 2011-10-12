@@ -62,8 +62,8 @@ def cadastrarUsuario(request):
 			
 			#Construindo a chave de ativação para a conta
 			salt = sha.new(str(random.random())).hexdigest()[:5]
-            chaveAtivacao = sha.new(salt+new_user.username).hexdigest()
-            dataExpiracao = datetime.datetime.today() + datetime.timedelta(2)
+			chaveAtivacao = sha.new(salt+new_user.username).hexdigest()
+			dataExpiracao = datetime.datetime.today() + datetime.timedelta(2)
 			
 			c = RequestContext (request, {})
 		elif usuario.is_active: #caso já exista um usuário com esse login e sua conta esteja ativa
@@ -89,7 +89,7 @@ def cadastrarProduto(request):
 		produto.save()
 
 		# XXX: Pegar usuario 
-		u = Usuario.objects.all()[0]
+		u = User.objects.all()[0]
 
 		perdido = Perdido(usuario=u, produto=produto)
 		perdido.save()
@@ -133,15 +133,33 @@ def listarProdutosAchados(request):
 
 	t = loader.get_template('listar_produtos.html')
 	c = RequestContext (request, {'produtos': produtos})
-	return HttpResponse(t.render(c))	
+	return HttpResponse(t.render(c))
 
 #uc08 
-def recuperarProduto(request):
-	return HttpResponse("TEM QUE FAZER!!!")
+""" Alguem achou algum produto e o usuario acredita que eh dele """
+def recuperarProduto(request, achado_id):
+	achado = Achado.objects.get(pk=achado_id)
+
+	# XXX: Pegar usuario 
+	u = User.objects.all()[0]
+
+	recuperado = Recuperado(usuario=u, achado=achado, status=False)
+	recuperado.save()
+
+	return HttpResponse("Voce falou que o produto "+achado.produto.descricao+" eh seu.")
 
 #uc09
-def encontrarProduto(request):
-	return HttpResponse("TEM QUE FAZER!!!")
+""" Alguem perdeu algum produto e o usuario acredita que o achou """
+def encontrarProduto(request, perdido_id):
+	perdido = Perdido.objects.get(pk=perdido_id)
+
+	# XXX: Pegar usuario 
+	u = User.objects.all()[0]
+
+	encontrado = Encontrado(usuario=u, perdido=perdido, status=False)
+	encontrado.save()
+
+	return HttpResponse("Voce disse que encontrou o produto %s" % perdido.produto.descricao)
 
 #uc10 - busca por tipo ou periodo
 def filtrarProduto(request):
