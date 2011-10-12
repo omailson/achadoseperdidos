@@ -27,14 +27,14 @@ class Achado(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
 	
 	#referente ao relacionamento com produto
-	usuario = models.ForeignKey(User) 
+	user = models.ForeignKey(User) 
 	produto = models.ForeignKey(Produto)
 	
 	#referente ao relacionamento possivel dono, com User
-	possiveis_donos = models.ManyToManyField(User, through="Recuperado")
+	possiveis_donos = models.ManyToManyField(User, related_name="produtos_achados", through="Recuperado")
 
 	def __unicode__(self):
-		return self.usuario.username + " achou "+ self.produto.descricao
+		return self.user.username + " achou "+ self.produto.descricao
 
 '''
 Para adicionar possiveis_donos a um Achado, faz:
@@ -49,32 +49,32 @@ Como Perdido é quem tem o campo ManyToManyField...
 achado.possiveis_donos.all()
 
 Se quiser saber o contrario, o que os usuarios encontraram, faz:
-user.achado_set.all()
+user.produtos_achados.all()
 '''	
 		
 #guarda os possiveis donos e o status dos produtos, representa o relacionamento com USER - É A TABELA QUE GUARDA O MANY TO MANY!	
 class Recuperado(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
-	usuario = models.ForeignKey(User)
+	user = models.ForeignKey(User)
 	achado = models.ForeignKey(Achado)
 	status = models.BooleanField() # Resolvido
 
 	def __unicode__(self):
-		return self.usuario.username+" recuperou "+self.achado.produto.descricao+" achado por "+self.achado.usuario.username
+		return self.user.username+" recuperou "+self.achado.produto.descricao+" achado por "+self.achado.user.username
 
 #entidade PERDIDO do modelo conceitual
 class Perdido(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
 	
 	#referente ao relacionamento com produto
-	usuario = models.ForeignKey(User)
+	user = models.ForeignKey(User)
 	produto = models.ForeignKey(Produto)
 	
 	#referente ao relacionamento "encontrou"
-	usuarios_encontraram = models.ManyToManyField(User, through="Encontrado")
+	usuarios_encontraram = models.ManyToManyField(User, related_name="produtos_perdidos", through="Encontrado")
 	
 	def __unicode__(self):
-		return self.usuario.username+" perdeu "+self.produto.descricao
+		return self.user.username+" perdeu "+self.produto.descricao
 
 '''
 Pra acessar os usuarios que "encontraram" um perdido, faz:
@@ -83,16 +83,16 @@ Como Perdido é quem tem o campo ManyToManyField...
 perdido.usuarios_encontraram.all()
 
 Se quiser saber o contrario, o que os usuarios encontraram, faz:
-user.perdido_set.all()
+user.produtos_perdidos.all()
 '''	
 		
 #representa o relacionamento MxN entre Produto e Perdido
 class Encontrado(models.Model):
 	data_registro = models.DateField('data registro', auto_now_add=True)
-	usuario = models.ForeignKey(User)
+	user = models.ForeignKey(User)
 	perdido = models.ForeignKey(Perdido)
 	status = models.BooleanField() # Resolvido
 
 	def __unicode__(self):
-		return self.usuario.username+" encontrou "+self.perdido.produto.descricao+" de "+self.perdido.usuario.username
+		return self.user.username+" encontrou "+self.perdido.produto.descricao+" de "+self.perdido.user.username
 
