@@ -1,32 +1,5 @@
 [
     {
-        "pk": "mdlm", 
-        "model": "servidor.usuario", 
-        "fields": {
-            "permissao": "asd", 
-            "senha": "123", 
-            "nome": "Mailson"
-        }
-    }, 
-    {
-        "pk": "vgl2", 
-        "model": "servidor.usuario", 
-        "fields": {
-            "permissao": "asd", 
-            "senha": "123", 
-            "nome": "Vanessa"
-        }
-    }, 
-    {
-        "pk": "mgmp", 
-        "model": "servidor.usuario", 
-        "fields": {
-            "permissao": "asd", 
-            "senha": "123", 
-            "nome": "Mariana"
-        }
-    }, 
-    {
         "pk": 1, 
         "model": "servidor.produto", 
         "fields": {
@@ -54,28 +27,28 @@
         "pk": 1, 
         "model": "servidor.achado", 
         "fields": {
-            "data_registro": "2011-10-02", 
+            "data_registro": "2011-10-12", 
             "produto": 3, 
-            "usuario": "mgmp"
+            "usuario": 4
         }
     }, 
     {
         "pk": 1, 
         "model": "servidor.recuperado", 
         "fields": {
-            "data_registro": "2011-10-02", 
-            "achado": 1, 
             "status": false, 
-            "usuario": "vgl2"
+            "data_registro": "2011-10-12", 
+            "achado": 1, 
+            "usuario": 3
         }
     }, 
     {
         "pk": 1, 
         "model": "servidor.perdido", 
         "fields": {
-            "data_registro": "2011-10-02", 
+            "data_registro": "2011-10-12", 
             "produto": 1, 
-            "usuario": "mdlm"
+            "usuario": 2
         }
     }
 ]
