@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 from servidor.models import *
 from django.core.context_processors import csrf
@@ -85,13 +85,13 @@ def cadastrarProduto(request):
 		tipoCadastro = cadastro['tipo']
 		descricaoCadastro = cadastro["descricao"]
 		
-		produto = Produto(tipo=tipoCadastro, descricao=descricaoCadastro)
-		produto.save()
+		p1 = Produto(tipo=tipoCadastro, descricao=descricaoCadastro)
+		p1.save()
 
 		# XXX: Pegar usuario 
 		u = User.objects.all()[0]
 
-		perdido = Perdido(usuario=u, produto=produto)
+		perdido = Perdido(user=u, produto=p1)
 		perdido.save()
 
 		resposta = "Cadastro efetuado com sucesso."
@@ -136,27 +136,27 @@ def listarProdutosAchados(request):
 	return HttpResponse(t.render(c))
 
 #uc08 
-""" Alguem achou algum produto e o usuario acredita que eh dele """
+''' Alguem achou algum produto e o usuario acredita que eh dele'''
 def recuperarProduto(request, achado_id):
-	achado = Achado.objects.get(pk=achado_id)
+	a1 = Achado.objects.get(pk=achado_id)
 
 	# XXX: Pegar usuario 
 	u = User.objects.all()[0]
 
-	recuperado = Recuperado(usuario=u, achado=achado, status=False)
+	recuperado = Recuperado(user=u, achado=a1, status=False)
 	recuperado.save()
 
 	return HttpResponse("Voce falou que o produto "+achado.produto.descricao+" eh seu.")
 
 #uc09
-""" Alguem perdeu algum produto e o usuario acredita que o achou """
+'''Alguem perdeu algum produto e o usuario acredita que o achou'''
 def encontrarProduto(request, perdido_id):
-	perdido = Perdido.objects.get(pk=perdido_id)
+	p1 = Perdido.objects.get(pk=perdido_id)
 
 	# XXX: Pegar usuario 
 	u = User.objects.all()[0]
 
-	encontrado = Encontrado(usuario=u, perdido=perdido, status=False)
+	encontrado = Encontrado(user=u, perdido=p1, status=False)
 	encontrado.save()
 
 	return HttpResponse("Voce disse que encontrou o produto %s" % perdido.produto.descricao)
