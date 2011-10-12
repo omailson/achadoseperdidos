@@ -29,7 +29,7 @@
         "fields": {
             "data_registro": "2011-10-12", 
             "produto": 3, 
-            "usuario": 4
+            "user": 4
         }
     }, 
     {
@@ -39,7 +39,7 @@
             "status": false, 
             "data_registro": "2011-10-12", 
             "achado": 1, 
-            "usuario": 3
+            "user": 3
         }
     }, 
     {
@@ -48,7 +48,7 @@
         "fields": {
             "data_registro": "2011-10-12", 
             "produto": 1, 
-            "usuario": 2
+            "user": 2
         }
     }
 ]
